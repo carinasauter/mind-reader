@@ -6,8 +6,8 @@ from datetime import datetime
 from pathlib import Path
 import os 
 
-inputfile = 'rawdataHouse4.csv'
-outputfile = "convertedDataHouseTest.csv"
+inputfile = 'rawdataBlinkingTest.csv'
+outputfile = "convertedDataBlinkingTest.csv"
 
 
 df = pd.read_csv(inputfile, names = ['wave'])

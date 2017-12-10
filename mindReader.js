@@ -16,6 +16,8 @@ console.log('Mind Reading in progress');
 
 buf = [];
 
+count = 0;
+
 mw.on('wave', function(wave){
 	var waveData = String(wave);
 	buf.push(waveData);
@@ -28,7 +30,12 @@ mw.on('wave', function(wave){
 				console.error(`exec error: ${err}`);
 				return;
 			}
-			console.log('Model says: ' + stdout);
+			
+			if (stdout != 0) {
+				count = count + 1;
+				console.log(count);
+				console.log('Model says you blinked');
+			}
 		});
 		buf = [];
 	}
