@@ -21,7 +21,6 @@ mw.on('wave', function(wave){
 	buf.push(waveData);
 	if (buf.length >= 512) {
 		const exec = require('child_process').exec;
-		console.log("calling model.")
 		var input = JSON.stringify(buf);
 		var cmd = 'python mindreadingmachine.py ' + input;
 		exec(cmd, (err, stdout, stderr) => {

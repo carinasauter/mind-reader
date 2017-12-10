@@ -2,6 +2,9 @@
 
 import sys, json
 import pickle
+import numpy as np
+
+
 
 #Read data from stdin
 def read_in():
@@ -9,16 +12,15 @@ def read_in():
     return input
 
 def main():
-    lines = read_in()
-    data = json.loads(lines) # this is input array
+	filename = 'mindreadingmodel.sav'
+	loaded_model = pickle.load(open(filename, 'rb'))
+	input = read_in()
+	data = json.loads(input) # this is input array
+	result = loaded_model.predict(data)
 
 
-    total_sum_inArray = 0
-    for item in data:
-        total_sum_inArray += 1
+	print(result[0])
 
-    #return the sum to the output stream
-    print (total_sum_inArray)
 
 # Start process
 main()

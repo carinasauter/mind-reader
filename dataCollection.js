@@ -8,7 +8,7 @@
 var Mindwave = require('mindwave');
 var mw = new Mindwave();
 const fs = require('fs');
-const file = fs.createWriteStream('rawdata.csv');
+const file = fs.createWriteStream('rawdataHouse4.csv');
 var settimer = 615000; // set timer here (miliseconds) 
 // good idea to set 15 seconds buffer time
 // 615000 ms = 615 seconds -> 10 min data + 15 buffer in the beginning
@@ -16,10 +16,8 @@ var settimer = 615000; // set timer here (miliseconds)
 
 mw.on('wave', function(wave){
 	var waveData = String(wave);
-	// var timeData = String(Date.now());
-	// var concatString = waveData + ',' + timeData + "\n"; // necessary because asynchronous
-	file.write(waveData + "\n", encoding='utf8');
-	console.log(waveData);
+	var concatString = waveData + "\n";
+	file.write(concatString);
 })
 
 console.log('Mindreading Machine v0.1');

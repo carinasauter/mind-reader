@@ -6,38 +6,37 @@ from datetime import datetime
 from pathlib import Path
 import os 
 
-df = pd.read_csv('rawdata.csv', names = ['wave'])
-newDF = pd.DataFrame(columns=['label','waves'])
-waves = df['wave'].tolist()
+inputfile = 'rawdataHouse4.csv'
+outputfile = "convertedDataHouseTest.csv"
 
+
+df = pd.read_csv(inputfile, names = ['wave'])
+
+newDF = pd.DataFrame(columns=['labels','waves'])
+
+waves = df['wave'].tolist()
 count = 0
 wavelist = []
 for x in range(0, len(waves)):
     wavelist.append(waves[x])
     if len(wavelist) == 512:
-        newDF.loc[count] = ['label', str(wavelist)]
+        newDF.loc[count] = ['label', wavelist]
         count = count + 1
         wavelist = []
 
-
-#this ensures we add exactly 10min worth of readings (1/s -> 600)
-#while mindreader actually runs for 10min 15s; necessary because we want to label correctly and
-#mindwave takes a couple of seconds to connect
-
-# accounting for buffer in beginning and lag for mindwave to connect
-delta = 600 + 15 - len(newDF)  #recordings are each 10min long + 15min buffer time
-delta = 15 - delta # we don't want to count the first 15 seconds of data
-
+# accounting for buffer in beginning
+delta = 600 - len(newDF)  #600
+delta = 15 - 15 - delta # we don't want to count the first 15 seconds of data
 del_index = []
-for x in range (0,delta):
+for x in range (0, delta):
     del_index.append(x)
-
 newDF.drop(newDF.index[del_index], inplace = True) # dropping 
 newDF.reset_index(drop = True, inplace = True)
 
 labels = []
 for x in range(0,600):
     labels.append(x)
+
 for x in range(0,600):
     if x < 50:
         labels[x] = 0
@@ -95,15 +94,15 @@ for x in range(0,600):
     else:
         labels[x] = 0
 
-newDF['label'] = labels
 
+newDF['labels'] = labels
 path = cwd = os.getcwd()
-my_file = Path(path + "/convertedData.csv")
+
+my_file = Path(path + "/" + outputfile)
 if my_file.is_file():
-    totalDF = pd.read_csv('convertedData.csv', index_col = 0)
+    totalDF = pd.read_csv(outputfile)
     totalDF = totalDF.append(newDF)
     totalDF.reset_index(drop = True, inplace=True)
-
-    totalDF.to_csv('convertedData.csv')
+    totalDF.to_csv(outputfile, index = False)
 else: 
-    newDF.to_csv('convertedData.csv')
+    newDF.to_csv(outputfile, index = False)
