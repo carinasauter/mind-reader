@@ -1,4 +1,5 @@
 #loads and queries my model with livestream input and returns prediction
+#model has to be saved locally as "mindreadingmodel.sav" (uses pickle to reserialize)
 
 import sys, json
 import pickle
