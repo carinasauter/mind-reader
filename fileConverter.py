@@ -1,13 +1,10 @@
 import pandas as pd
 import numpy as np
-import time
-import datetime
-from datetime import datetime
 from pathlib import Path
 import os 
 
-inputfile = 'rawdataBlinkingTest.csv'
-outputfile = "convertedDataBlinkingTest.csv"
+inputfile = 'rawdataHouse4.csv'
+outputfile = "convertedDataHouse.csv"
 
 
 df = pd.read_csv(inputfile, names = ['wave'])

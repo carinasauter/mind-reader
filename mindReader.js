@@ -12,11 +12,14 @@ const fs = require('fs');
 
 console.log('Mindreading Machine v0.1');
 mw.connect('/dev/cu.MindWaveMobile-DevA');
-console.log('Mind Reading in progress');
+console.log('Connecting...');
 
 buf = [];
 
+readings = 0;
 count = 0;
+
+found = false;
 
 mw.on('wave', function(wave){
 	var waveData = String(wave);
@@ -30,11 +33,17 @@ mw.on('wave', function(wave){
 				console.error(`exec error: ${err}`);
 				return;
 			}
-			
-			if (stdout != 0) {
+			readings = readings + 1;
+			if (readings == 5) {
+				console.log("Mind Reading Machine is ready.")
+			}
+			if (readings >=  5 & stdout != 0 & !found) {
 				count = count + 1;
-				console.log(count);
-				console.log('Model says you blinked');
+				console.log(count + " Model says you thought it!");
+				found = true;
+			} 
+			if (readings >= 5 & stdout == 0 & found) {
+				found = false;
 			}
 		});
 		buf = [];

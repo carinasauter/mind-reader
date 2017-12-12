@@ -8,7 +8,7 @@
 var Mindwave = require('mindwave');
 var mw = new Mindwave();
 const fs = require('fs');
-const file = fs.createWriteStream('rawdataBlinkingTest.csv');
+const file = fs.createWriteStream('rawdataHouse7.csv');
 var settimer = 615000; // set timer here (miliseconds) 
 // good idea to set 15 seconds buffer time
 // 615000 ms = 615 seconds -> 10 min data + 15 buffer in the beginning
@@ -23,7 +23,6 @@ mw.on('wave', function(wave){
 console.log('Mindreading Machine v0.1');
 console.log('connecting');
 mw.connect('/dev/cu.MindWaveMobile-DevA');
-var start = Date.now();
 
 
 setTimeout(function(){

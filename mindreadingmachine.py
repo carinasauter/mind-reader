@@ -13,7 +13,7 @@ def read_in():
     return input
 
 def main():
-	filename = 'mindreadingmodel.sav'
+	filename = 'mindreadingmodelHouse.sav'
 	loaded_model = pickle.load(open(filename, 'rb'))
 	input = read_in()
 	data = json.loads(input) # this is input array
